@@ -34,9 +34,3 @@ class PageStrategy(ABC):
         Abstract method to be implemented by concrete subclasses.
         """
         pass
-
-    async def close_browser(self):
-        """
-        Closes the Playwright browser instance.
-        """
-        return await self._browser.close()

@@ -7,6 +7,7 @@ class PlaywrightModule():
         """
         self._browser = None
         self._page = None
+        self._instance = None
 
     async def launch_playwright(self):
         """
@@ -17,8 +18,21 @@ class PlaywrightModule():
         browser = await playwright.firefox.launch(
             headless=True,
         )
+
+        self._instance = playwright
         self._browser = browser
         self._page = await browser.new_page()
 
         return self
     
+    async def stop_playwright(self):
+        """
+        Stops the Playwright instance and closes the browser (if launched).
+        """
+        if self._browser:
+            await self._browser.close()
+        await self._instance.stop()
+
+        self._browser = None
+        self._page = None
+        self._instance = None
