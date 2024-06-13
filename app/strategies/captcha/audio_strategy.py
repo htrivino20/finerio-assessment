@@ -33,7 +33,7 @@ class AudioCaptchaStrategy(CaptchaStrategy):
         
         path = save_audio(audio_source)
 
-        transcription = await self._openai.transcribe_audio(path)
+        transcription = await self._openai.transcribe_audio(path=path)
 
         print("transcription")
 

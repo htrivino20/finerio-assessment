@@ -2,15 +2,31 @@ from openai import AsyncOpenAI
 import os
 class OpenAIModule:
     def __init__(self):
+        """
+        Initializes the OpenAI client with the provided API key from the environment variable.
+        """
         self._client = AsyncOpenAI(
             api_key=os.environ['OPENAI_API_KEY']
         )
 
     async def transcribe_audio(self, path: str):
-        audio_file= open(path, "rb")
-        transcription = await self._client.audio.transcriptions.create(
-            model = "whisper-1", 
-            file = audio_file
-        )
+        """
+        Transcribes an audio file using OpenAI's Whisper model.
 
-        return transcription.text
+        Args:
+            path (str): Path to the audio file.
+
+        Returns:
+            str: The transcribed text or None if an error occurs.
+        """
+        try:
+            with open(path, "rb") as audio_file:
+                transcription = await self._client.audio.transcriptions.create(
+                    model="whisper-1",
+                    file=audio_file,
+                )
+                return transcription.text
+        except Exception as e:
+            # Handle error and potentially return an error message
+            print(f"Error during transcription: {e}")
+            return None

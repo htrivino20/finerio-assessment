@@ -1,7 +1,8 @@
 from fastapi import FastAPI
 from fastapi.responses import HTMLResponse
-
 from .provider.browser import BrowserProvider
+from dotenv import load_dotenv
+load_dotenv()
 
 app = FastAPI()
 
