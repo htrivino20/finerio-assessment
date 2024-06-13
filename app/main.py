@@ -1,11 +1,12 @@
 from fastapi import FastAPI
 from fastapi.responses import HTMLResponse
-from .provider.browser import BrowserProvider
 from dotenv import load_dotenv
+from .provider.browser import BrowserProvider
 
 load_dotenv()
 
 app = FastAPI()
+
 
 async def run_browser(url: str):
     provider = BrowserProvider(url)
@@ -15,9 +16,6 @@ async def run_browser(url: str):
 
     return HTMLResponse(content=content, status_code=200)
 
-@app.get("/hello")
-def say_hello():
-    return { "message": "hello" }
 
 @app.get("/bypass/")
 async def handle_captcha_bypass(url: str):

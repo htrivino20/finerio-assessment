@@ -1,13 +1,13 @@
-from openai import AsyncOpenAI
 import os
+from openai import AsyncOpenAI
+
+
 class OpenAIModule:
     def __init__(self):
         """
         Initializes the OpenAI client with the provided API key from the environment variable.
         """
-        self._client = AsyncOpenAI(
-            api_key=os.environ['OPENAI_API_KEY']
-        )
+        self._client = AsyncOpenAI(api_key=os.environ["OPENAI_API_KEY"])
 
     async def transcribe_audio(self, path: str):
         """
@@ -26,7 +26,7 @@ class OpenAIModule:
                     file=audio_file,
                 )
                 return transcription.text
-        except Exception as e:
+        except Exception as exception:
             # Handle error and potentially return an error message
-            print(f"Error during transcription: {e}")
+            print(f"Error during transcription: {exception}")
             return None
