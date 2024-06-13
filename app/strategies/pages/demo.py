@@ -1,6 +1,4 @@
 from ...strategies.pages.base import PageStrategy
-from ...clients.playwright import PlaywrightModule
-from ...strategies.captcha.base import CaptchaStrategy
 
 
 class DemoStrategy(PageStrategy):
@@ -11,11 +9,6 @@ class DemoStrategy(PageStrategy):
     page content
     using testing pages.
     """
-
-    def __init__(self, playwright: PlaywrightModule, strategy: CaptchaStrategy):
-        """
-        Initializes the DemoStrategy instance.
-        """
 
     async def submit_form(self):
         """
