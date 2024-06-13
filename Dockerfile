@@ -37,6 +37,8 @@ RUN playwright install
 
 COPY . /app
 
+RUN mkdir tmp
+
 EXPOSE 80
 
 ENV NAME World
