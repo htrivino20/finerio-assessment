@@ -14,6 +14,10 @@ async def run_browser(url: str):
 
     return HTMLResponse(content=content, status_code=200)
 
+@app.get("/hello")
+def say_hello():
+    return { "message": "hello" }
+
 @app.get("/bypass/")
 async def handle_captcha_bypass(url: str):
     return await run_browser(url)
