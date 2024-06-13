@@ -10,8 +10,7 @@ class BrowserProvider:
 
     async def init_bypass_strategy(self):
         playwright = PlaywrightModule()
-
-        await playwright.init_playwright()
+        playwright = await playwright.launch_playwright()
     
         openai = OpenAIModule()
 
@@ -25,8 +24,6 @@ class BrowserProvider:
             await self._page_strategy.submit_form()
 
             content = await self._page_strategy.get_content()
-
-            await self._page_strategy.close_browser()
 
             return content
         else:

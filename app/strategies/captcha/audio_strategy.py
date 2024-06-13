@@ -4,41 +4,52 @@ from ...clients.playwright import PlaywrightModule
 from ...clients.openai import OpenAIModule
 
 class AudioCaptchaStrategy(CaptchaStrategy):
+    """
+    Concrete subclass of CaptchaStrategy for handling audio-based CAPTCHAs.
+    """
     def __init__(self, playwright: PlaywrightModule, openai: OpenAIModule, url: str):
+        """
+        Initializes the AudioCaptchaStrategy with Playwright and OpenAI instances, and the target URL.
+        """
         super().__init__(playwright, url)
         self._openai = openai
         self._captcha_modal_locator = 'iframe[title="recaptcha challenge expires in two minutes"]'
         self._captcha_frame_locator = 'iframe[role="presentation"][title="reCAPTCHA"]'
 
     async def bypass_captcha(self):
-        # TODO: Add error handler
+        """
+        Attempts to bypass an audio-based CAPTCHA challenge.
+
+        This method interacts with the website using Playwright, retrieves the audio challenge,
+        transcribes it using OpenAI, and fills the response field with the transcription.
+        """
         await self._page.goto(self._url)
         
+        # Find and click the checkbox element within the CAPTCHA frame
         captcha = self._page.frame_locator(self._captcha_frame_locator).first.locator('[class="recaptcha-checkbox-border"]')
-        
-        print("captcha click")
         await captcha.click()
-        
-        audio_button = self._page.frame_locator(self._captcha_modal_locator).locator('#recaptcha-audio-button')
-        print("audio click")
 
+        # Click the audio button to play the CAPTCHA challenge
+        audio_button = self._page.frame_locator(self._captcha_modal_locator).locator('#recaptcha-audio-button')
         await audio_button.click()
         
+        # Click the "Press PLAY to listen" button
         play_button = self._page.frame_locator(self._captcha_modal_locator).get_by_label("Press PLAY to listen")
-        
-        print("play click")
         await play_button.click()
         
+        # Retrieve the audio source URL
         audio_source = await self._page.frame_locator(self._captcha_modal_locator).locator('#audio-source').get_attribute('src')
         
+        # Download and save the audio file using the assumed function from shared.audio
         path = save_audio(audio_source)
 
+        # Transcribe the downloaded audio using the OpenAI client
         transcription = await self._openai.transcribe_audio(path=path)
 
-        print("transcription")
-
+        # Fill the CAPTCHA response field with the transcribed text
         await self._page.frame_locator(self._captcha_modal_locator).locator('#audio-response').fill(transcription)
 
+        # Submit the CAPTCHA solution by pressing "Enter"
         await self._page.keyboard.press("Enter")
 
         return True
