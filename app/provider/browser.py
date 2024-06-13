@@ -43,6 +43,8 @@ class BrowserProvider:
         """
         Retrieves content from the target URL, potentially handling CAPTCHAs.
         """
+        await self.init_bypass_strategy()
+
         if self._page_strategy:
             try:
                 await self._page_strategy.vulnerate_page()
