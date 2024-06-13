@@ -9,26 +9,26 @@ class AudioCaptchaStrategy(CaptchaStrategy):
     Concrete subclass of CaptchaStrategy for handling audio-based CAPTCHAs.
     """
 
-    def __init__(self, playwright: PlaywrightModule, openai: OpenAIModule, url: str):
+    def __init__(self, playwright: PlaywrightModule, openai: OpenAIModule):
         """
         Initializes the AudioCaptchaStrategy with Playwright and OpenAI instances, and
         the target URL.
         """
-        super().__init__(playwright, url)
+        super().__init__(playwright)
         self._openai = openai
         self._captcha_modal_locator = (
             'iframe[title="recaptcha challenge expires in two minutes"]'
         )
         self._captcha_frame_locator = 'iframe[role="presentation"][title="reCAPTCHA"]'
 
-    async def bypass_captcha(self):
+    async def bypass_captcha(self, url: str):
         """
         Attempts to bypass an audio-based CAPTCHA challenge.
 
         This method interacts with the website using Playwright, retrieves the audio challenge,
         transcribes it using OpenAI, and fills the response field with the transcription.
         """
-        await self._page.goto(self._url)
+        await self._page.goto(url)
 
         # Find and click the checkbox element within the CAPTCHA frame
         captcha = self._page.frame_locator(self._captcha_frame_locator).first.locator(

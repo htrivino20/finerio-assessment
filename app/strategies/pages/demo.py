@@ -22,8 +22,8 @@ class DemoStrategy(PageStrategy):
         """
         return await self._page.content()
 
-    async def vulnerate_page(self):
+    async def vulnerate_page(self, url: str):
         """
         Attempts to bypass CAPTCHA using the injected CaptchaStrategy (if provided).
         """
-        return await self._strategy.bypass_captcha()
+        return await self._strategy.bypass_captcha(url)

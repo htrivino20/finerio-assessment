@@ -8,7 +8,13 @@ class PageStrategy(ABC):
     Abstract base class for defining strategies to interact with web pages using Playwright.
     """
 
-    def __init__(self, playwright: PlaywrightModule, strategy: CaptchaStrategy):
+    def __init__(
+        self,
+        # container: Container,
+        # strategy: CaptchaStrategy
+        playwright: PlaywrightModule,
+        strategy: CaptchaStrategy,
+    ):
         """
         Initializes the PageStrategy instance.
         """
