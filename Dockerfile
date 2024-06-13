@@ -41,6 +41,6 @@ RUN mkdir tmp
 
 EXPOSE 80
 
-ENV NAME World
+ENV OPENAI_API_KEY=$OPENAI_API_KEY
 
 CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "80"]
