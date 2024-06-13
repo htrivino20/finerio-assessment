@@ -10,8 +10,6 @@ class PageStrategy(ABC):
 
     def __init__(
         self,
-        # container: Container,
-        # strategy: CaptchaStrategy
         playwright: PlaywrightModule,
         strategy: CaptchaStrategy,
     ):

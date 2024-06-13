@@ -1,3 +1,4 @@
+import logging
 import os
 from openai import AsyncOpenAI
 
@@ -28,5 +29,5 @@ class OpenAIModule:
                 return transcription.text
         except Exception as exception:
             # Handle error and potentially return an error message
-            print(f"Error during transcription: {exception}")
+            logging.error("Error at %s", exc_info=exception)
             return None

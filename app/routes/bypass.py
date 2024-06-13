@@ -10,8 +10,7 @@ router = APIRouter()
 
 async def get_content(url: str):
     provider = app_container[BrowserProvider]
-
-    await provider.init_bypass_strategy(url)
+    provider = await provider.init_bypass_strategy(url)
 
     content = await provider.get_content_with_captcha_handling(url)
 
@@ -28,5 +27,5 @@ async def bypass_captcha(url: str):
 
         return HTMLResponse(content=content, status_code=200)
     except Exception as exception:
-        logging.error("Error at %s", "division", exc_info=exception)
+        logging.error("Error at %s", exc_info=exception)
         return JSONResponse({"message": "An error occurred"})

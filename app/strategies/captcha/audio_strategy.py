@@ -1,4 +1,4 @@
-from ...shared.audio import save_audio
+from ...shared.utils import Utils
 from ...strategies.captcha.base import CaptchaStrategy
 from ...clients.playwright import PlaywrightModule
 from ...clients.openai import OpenAIModule
@@ -9,12 +9,14 @@ class AudioCaptchaStrategy(CaptchaStrategy):
     Concrete subclass of CaptchaStrategy for handling audio-based CAPTCHAs.
     """
 
-    def __init__(self, playwright: PlaywrightModule, openai: OpenAIModule):
+    def __init__(
+        self, playwright: PlaywrightModule, openai: OpenAIModule, utils: Utils
+    ):
         """
         Initializes the AudioCaptchaStrategy with Playwright and OpenAI instances, and
         the target URL.
         """
-        super().__init__(playwright)
+        super().__init__(playwright=playwright, utils=utils)
         self._openai = openai
         self._captcha_modal_locator = (
             'iframe[title="recaptcha challenge expires in two minutes"]'
@@ -56,7 +58,7 @@ class AudioCaptchaStrategy(CaptchaStrategy):
         )
 
         # Download and save the audio file using the assumed function from shared.audio
-        path = save_audio(audio_source)
+        path = self._utils.save_audio(audio_source)
 
         # Transcribe the downloaded audio using the OpenAI client
         transcription = await self._openai.transcribe_audio(path=path)

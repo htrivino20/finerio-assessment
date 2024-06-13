@@ -1,3 +1,4 @@
+from ..shared.utils import Utils
 from ..clients.playwright import PlaywrightModule
 from ..clients.openai import OpenAIModule
 from ..strategies.captcha.audio_strategy import AudioCaptchaStrategy
@@ -6,12 +7,11 @@ from ..strategies.pages.demo import DemoStrategy
 
 class BrowserProvider:
     def __init__(
-        self,
-        playwright: PlaywrightModule,
-        openai: OpenAIModule,
+        self, playwright: PlaywrightModule, openai: OpenAIModule, utils: Utils
     ):
         self._playwright = playwright
         self._openai = openai
+        self._utils = utils
         self._page_strategy = None
 
     async def init_bypass_strategy(self, url: str):
@@ -27,7 +27,9 @@ class BrowserProvider:
         self._playwright = await self._playwright.launch_playwright()
 
         if "demo" in url:
-            captcha_strategy = AudioCaptchaStrategy(self._playwright, self._openai)
+            captcha_strategy = AudioCaptchaStrategy(
+                playwright=self._playwright, openai=self._openai, utils=self._utils
+            )
             self._page_strategy = DemoStrategy(self._playwright, captcha_strategy)
 
         return self
