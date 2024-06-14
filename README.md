@@ -53,6 +53,13 @@ Choose and use appropriate page and captcha strategies based on the automation f
     ```
     docker run -i -d -p 80:80 finerio-assessment
     ```
+4. Via postman (method: GET) or browser just get the resource sending url as a query param
+    ```
+    http://localhost/bypass/?url=https://www.google.com/recaptcha/api2/demo
+    ```
+5. You will receive the content
+    ![Demo Bypass](./assets/demo_bypass.png)
+
 ## Next steps
 There are different improvement points:
 * Include a pipeline to hanlde CI/CD
