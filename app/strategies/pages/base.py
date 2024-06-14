@@ -33,7 +33,7 @@ class PageStrategy(ABC):
         """
 
     @abstractmethod
-    async def vulnerate_page(self):
+    async def vulnerate_page(self, url: str):
         """
         Abstract method to be implemented by concrete subclasses.
         """

@@ -6,8 +6,7 @@ class DemoStrategy(PageStrategy):
     Concrete subclass of PageStrategy implementing basic form submission and content retrieval.
 
     This strategy demonstrates a basic implementation for submitting forms and retrieving
-    page content
-    using testing pages.
+    page content using testing pages.
     """
 
     async def submit_form(self):

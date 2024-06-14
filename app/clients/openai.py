@@ -13,12 +13,6 @@ class OpenAIModule:
     async def transcribe_audio(self, path: str):
         """
         Transcribes an audio file using OpenAI's Whisper model.
-
-        Args:
-            path (str): Path to the audio file.
-
-        Returns:
-            str: The transcribed text or None if an error occurs.
         """
         try:
             with open(path, "rb") as audio_file:

@@ -16,11 +16,8 @@ class BrowserProvider:
 
     async def init_bypass_strategy(self, url: str):
         """
-        Initializes the bypass strategy based on the URL and potentially
-        creates Playwright and OpenAI instances.
+        Initializes the bypass strategy based on the URL
 
-        This method checks if Playwright and OpenAI instances are provided in
-        the constructor. If not, it creates them asynchronously.
         It then selects the appropriate strategy based on the URL (currently using a
         simple "demo" check).
         """
@@ -36,7 +33,7 @@ class BrowserProvider:
 
     async def get_content_with_captcha_handling(self, url: str):
         """
-        Retrieves content from the target URL, potentially handling CAPTCHAs.
+        Retrieves content from the target URL.
         """
         if self._page_strategy:
             try:

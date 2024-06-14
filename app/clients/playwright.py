@@ -13,7 +13,6 @@ class PlaywrightModule:
     async def launch_playwright(self):
         """
         Launches a new Playwright instance with Firefox browser in headless mode.
-        Returns the PlaywrightModule instance for method chaining.
         """
         playwright = await async_playwright().start()
         browser = await playwright.firefox.launch(

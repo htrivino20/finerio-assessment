@@ -13,8 +13,7 @@ class AudioCaptchaStrategy(CaptchaStrategy):
         self, playwright: PlaywrightModule, openai: OpenAIModule, utils: Utils
     ):
         """
-        Initializes the AudioCaptchaStrategy with Playwright and OpenAI instances, and
-        the target URL.
+        Initializes the AudioCaptchaStrategy with Playwright and OpenAI instances.
         """
         self._page = playwright.page
         self._utils = utils
