@@ -60,7 +60,13 @@ Choose and use appropriate page and captcha strategies based on the automation f
 5. You will receive the content
     ![Demo Bypass](./assets/demo_bypass.png)
 
+## Technical documentation
+
+Technical documentation is found in root as `technical_doc.pdf`
+
 ## Next steps
 There are different improvement points:
+* Deploy app, AWS, GCP, DigitalOcean or on premise server
 * Include a pipeline to hanlde CI/CD
 * Since this is an assessment not all of the modules were tested, then it would be useful to have a 100% of coverage and include it on `.pre-commit-config.yaml` to avoid issues on deployment
+* No authentication/authorization was added since it is required on a production environment
