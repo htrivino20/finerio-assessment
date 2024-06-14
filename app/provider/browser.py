@@ -1,8 +1,8 @@
-from ..shared.utils import Utils
-from ..clients.playwright import PlaywrightModule
-from ..clients.openai import OpenAIModule
-from ..strategies.captcha.audio_strategy import AudioCaptchaStrategy
-from ..strategies.pages.demo import DemoStrategy
+from app.shared.utils import Utils
+from app.clients.playwright import PlaywrightModule
+from app.clients.openai import OpenAIModule
+from app.strategies.captcha.audio_strategy import AudioCaptchaStrategy
+from app.strategies.pages.demo import DemoStrategy
 
 
 class BrowserProvider:

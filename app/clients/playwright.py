@@ -6,8 +6,8 @@ class PlaywrightModule:
         """
         Initializes the PlaywrightModule instance. The browser is not launched here.
         """
-        self._browser = None
-        self._page = None
+        self.browser = None
+        self.page = None
         self._instance = None
 
     async def launch_playwright(self):
@@ -17,12 +17,12 @@ class PlaywrightModule:
         """
         playwright = await async_playwright().start()
         browser = await playwright.firefox.launch(
-            headless=False,
+            headless=True,
         )
 
         self._instance = playwright
-        self._browser = browser
-        self._page = await browser.new_page()
+        self.browser = browser
+        self.page = await browser.new_page()
 
         return self
 
@@ -30,10 +30,10 @@ class PlaywrightModule:
         """
         Stops the Playwright instance and closes the browser (if launched).
         """
-        if self._browser:
-            await self._browser.close()
+        if self.browser:
+            await self.browser.close()
         await self._instance.stop()
 
-        self._browser = None
-        self._page = None
+        self.browser = None
+        self.page = None
         self._instance = None

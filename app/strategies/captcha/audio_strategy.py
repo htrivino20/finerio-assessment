@@ -1,7 +1,7 @@
-from ...shared.utils import Utils
-from ...strategies.captcha.base import CaptchaStrategy
-from ...clients.playwright import PlaywrightModule
-from ...clients.openai import OpenAIModule
+from app.shared.utils import Utils
+from app.strategies.captcha.base import CaptchaStrategy
+from app.clients.playwright import PlaywrightModule
+from app.clients.openai import OpenAIModule
 
 
 class AudioCaptchaStrategy(CaptchaStrategy):
@@ -16,7 +16,8 @@ class AudioCaptchaStrategy(CaptchaStrategy):
         Initializes the AudioCaptchaStrategy with Playwright and OpenAI instances, and
         the target URL.
         """
-        super().__init__(playwright=playwright, utils=utils)
+        self._page = playwright.page
+        self._utils = utils
         self._openai = openai
         self._captcha_modal_locator = (
             'iframe[title="recaptcha challenge expires in two minutes"]'
@@ -64,9 +65,10 @@ class AudioCaptchaStrategy(CaptchaStrategy):
         transcription = await self._openai.transcribe_audio(path=path)
 
         # Fill the CAPTCHA response field with the transcribed text
-        await self._page.frame_locator(self._captcha_modal_locator).locator(
+        captcha_input = self._page.frame_locator(self._captcha_modal_locator).locator(
             "#audio-response"
-        ).fill(transcription)
+        )
+        await captcha_input.fill(transcription)
 
         # Submit the CAPTCHA solution by pressing "Enter"
         await self._page.keyboard.press("Enter")

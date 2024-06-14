@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
-from ...strategies.captcha.base import CaptchaStrategy
-from ...clients.playwright import PlaywrightModule
+from app.strategies.captcha.base import CaptchaStrategy
+from app.clients.playwright import PlaywrightModule
 
 
 class PageStrategy(ABC):
@@ -16,8 +16,8 @@ class PageStrategy(ABC):
         """
         Initializes the PageStrategy instance.
         """
-        self._page = playwright._page
-        self._browser = playwright._browser
+        self._page = playwright.page
+        self._browser = playwright.browser
         self._strategy = strategy
 
     @abstractmethod

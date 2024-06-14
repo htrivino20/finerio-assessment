@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from dotenv import load_dotenv
-from .routes import bypass  # Import the bypass router
+from app.routes import bypass  # Import the bypass router
 
 # Load environment variables (optional, depending on your project needs)
 load_dotenv()

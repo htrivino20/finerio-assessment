@@ -1,7 +1,7 @@
 from lagom import Container, Singleton
-from ..clients.openai import OpenAIModule
-from ..clients.playwright import PlaywrightModule
-from ..shared.utils import Utils
+from app.clients.openai import OpenAIModule
+from app.clients.playwright import PlaywrightModule
+from app.shared.utils import Utils
 
 app_container = Container()
 

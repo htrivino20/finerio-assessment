@@ -1,5 +1,5 @@
-from ..repository.content import ContentRepository
-from ..provider.browser import BrowserProvider
+from app.repository.content import ContentRepository
+from app.provider.browser import BrowserProvider
 
 
 class BrowserContentRepository(ContentRepository):
@@ -9,4 +9,5 @@ class BrowserContentRepository(ContentRepository):
     async def get_content_with_captcha_handling(self, url: str) -> str:
         provider = await self.browser_provider.init_bypass_strategy(url)
         content = await provider.get_content_with_captcha_handling(url)
+
         return content

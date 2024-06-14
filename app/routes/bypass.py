@@ -2,10 +2,10 @@ import logging
 from fastapi import APIRouter, Depends
 from fastapi.responses import HTMLResponse, JSONResponse
 
-from ..provider.browser import BrowserProvider
-from ..provider.container import app_container
-from ..repository.content import ContentRepository
-from ..repository.browser_content import BrowserContentRepository
+from app.provider.browser import BrowserProvider
+from app.provider.container import app_container
+from app.repository.content import ContentRepository
+from app.repository.browser_content import BrowserContentRepository
 
 
 router = APIRouter()
